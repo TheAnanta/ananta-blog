@@ -1,26 +1,305 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+/*
+ * Headspace Apercu & Apercu Mono font definitions
+ */
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Headspace Apercu";
+  src: url("/fonts/HeadspaceApercu-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Apercu Mono Pro";
+  src: url("/fonts/apercu_mono_pro_light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Apercu Mono Pro";
+  src: url("/fonts/apercu_mono_pro_regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Apercu Mono Pro";
+  src: url("/fonts/apercu_mono_pro_medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Apercu Mono Pro";
+  src: url("/fonts/apercu_mono_pro_bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Design tokens matched to a reference "Headspace-style" blog layout.
+ */
 :root {
+  --font-apercu: "Headspace Apercu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-apercu-mono: "Apercu Mono Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2d2c2b;
+
+  --color-ananta-blue: #0061ef;
+  --color-ananta-blue-hover: #0040ea;
+  --color-ananta-blue-active: #0000db;
+  --color-ananta-yellow: #ffce00;
+  --color-ananta-green: #02873e;
+
+  --color-ananta-text: #2d2c2b;
+  --color-ananta-text-secondary: #44423f;
+  --color-ananta-text-body: #4b4c4d;
+  --color-ananta-text-title: #141313;
+
+  --color-ananta-cream: #f9f4f2;
+  --color-ananta-white: #ffffff;
+
+  --color-ananta-border: #e2ded9;
+  --color-ananta-border-dark: #c6c1b9;
+  --color-ananta-ring: #d2d5de;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-apercu);
+  --font-mono: var(--font-apercu-mono);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ananta-blue: var(--color-ananta-blue);
+  --color-ananta-blue-hover: var(--color-ananta-blue-hover);
+  --color-ananta-blue-active: var(--color-ananta-blue-active);
+  --color-ananta-yellow: var(--color-ananta-yellow);
+  --color-ananta-green: var(--color-ananta-green);
+
+  --color-ananta-text: var(--color-ananta-text);
+  --color-ananta-text-secondary: var(--color-ananta-text-secondary);
+  --color-ananta-text-body: var(--color-ananta-text-body);
+  --color-ananta-text-title: var(--color-ananta-text-title);
+
+  --color-ananta-cream: var(--color-ananta-cream);
+  --color-ananta-white: var(--color-ananta-white);
+
+  --color-ananta-border: var(--color-ananta-border);
+  --color-ananta-border-dark: var(--color-ananta-border-dark);
+  --color-ananta-ring: var(--color-ananta-ring);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Pill button system, shared across the site. */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.75rem;
+  text-decoration: none !important;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 100ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.btn-pill-primary {
+  background-color: var(--color-ananta-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 0 rgba(65, 61, 69, 0.2);
+}
+
+.btn-pill-primary:hover {
+  background-color: var(--color-ananta-blue-hover);
+}
+
+.btn-pill-primary:active {
+  background-color: var(--color-ananta-blue-active);
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.btn-pill-secondary {
+  background-color: #ffffff;
+  color: var(--color-ananta-text-secondary);
+  border: 1.5px solid var(--color-ananta-text-secondary);
+}
+
+.btn-pill-secondary:hover {
+  background-color: var(--color-ananta-cream);
+}
+
+.btn-pill-secondary:active {
+  transform: translateY(2px);
+}
+
+/* Article prose overrides to match the reference body-copy spec. */
+.prose-ananta {
+  color: var(--color-ananta-text-body);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.prose-ananta :where(p, li) {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--color-ananta-text-body);
+}
+
+@media (min-width: 768px) {
+  .prose-ananta :where(p, li) {
+    font-size: 1.125rem;
+  }
+}
+
+.prose-ananta :where(h1, h2, h3, h4) {
+  color: var(--color-ananta-text);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.prose-ananta a:not(.btn-pill) {
+  color: var(--color-ananta-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-ananta a:not(.btn-pill):hover {
+  color: var(--color-ananta-blue-hover);
+}
+
+.prose-ananta blockquote {
+  border-left-color: var(--color-ananta-border-dark);
+  color: var(--color-ananta-text-secondary);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.prose-ananta :not(pre) > code {
+  color: var(--color-ananta-text);
+}
+
+/* Code blocks: force a light-on-dark palette so text stays visible
+   regardless of the typography plugin's own color variables. */
+.prose-ananta pre {
+  background-color: #1e293b;
+}
+
+.prose-ananta pre code {
+  color: #e2e8f0;
+  background-color: transparent;
+}
+
+/* Orange dot bullets, matching the reference's custom list marker. */
+.prose-ananta ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.prose-ananta ul li {
+  position: relative;
+}
+
+.prose-ananta ul li::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: -1.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #ff7300;
+}
+
+.prose-ananta sub {
+  font-size: 0.75em;
+}
+
+/* Type scale matched to the reference's text-rendering + heading sizes. */
+.prose-ananta h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.045rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .prose-ananta h2 {
+    font-size: 1.75rem;
+  }
 }

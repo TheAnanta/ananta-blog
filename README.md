@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ananta Blog
 
-## Getting Started
+The public site for [blogs.theananta.in](https://blogs.theananta.in) - Next.js
+(App Router, TypeScript, Tailwind). This is the sibling of the `ananta_ideas`
+Flutter app; posts are written and published from there, not from this repo.
 
-First, run the development server:
+## Content pipeline
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Posts are **not** fetched from Supabase at request or build time. Instead:
+
+1. In the Ananta Ideas app, a publisher flips a post's status to
+   `published`.
+2. The app calls the Supabase `publish-post` Edge Function
+   (`ananta_ideas/supabase/functions/publish-post/index.ts`).
+3. The function reads the post row from Postgres and commits
+   `content/posts/<slug>.json` to this repo via the GitHub Contents API,
+   on the branch configured by `GITHUB_BRANCH` (see that repo's
+   `supabase/.env.example`).
+4. Vercel's git integration sees the push and redeploys automatically -
+   `generateStaticParams` in `app/blog/[slug]/page.tsx` picks up the new
+   file on the next build. Unpublishing deletes the file the same way,
+   which 404s the route once redeployed.
+
+Each JSON file matches the `Post` shape in `lib/posts.ts`:
+
+```json
+{
+  "slug": "my-post",
+  "title": "My Post",
+  "excerpt": "One-line summary",
+  "coverImageUrl": "https://...",
+  "tags": ["tag-one", "tag-two"],
+  "authorName": "Jane Doe",
+  "publishedAt": "2026-08-25T09:00:00.000Z",
+  "bodyMarkdown": "# Markdown body..."
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Four sample posts ship in `content/posts/` (placeholder `picsum.photos`
+covers) so `npm run dev` renders something immediately without touching
+Supabase or GitHub.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/` - minimal landing page linking to `/blog`.
+- `/blog` - index of all posts (grid of cards).
+- `/blog/[slug]` - full article: hero cover image, title, author/date/
+  read-time meta line, Markdown body rendered with `@tailwindcss/typography`
+  prose styling. Styled to an editorial quality bar (generous whitespace,
+  large hero, readable measure) inspired by long-form blog layouts like
+  Headspace's blog - not copying their branding or content, just the layout
+  quality bar.
 
-## Learn More
+## Develop
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+## Real deploy (not done here - no credentials exist yet)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this repo to GitHub.
+2. Import it into Vercel; point the production domain at
+   `blogs.theananta.in`.
+3. In the Ananta Ideas app's Supabase project, set the `publish-post`
+   function's secrets (`GITHUB_TOKEN`, `GITHUB_REPO` as `owner/ananta-blog`,
+   `GITHUB_BRANCH`) so it can commit here.
+4. From then on, publishing in the app commits directly to this repo and
+   Vercel redeploys on every push - no manual step on the site side.
