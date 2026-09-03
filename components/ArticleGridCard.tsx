@@ -24,6 +24,7 @@ export function ArticleGridCard({
             src={post.coverImageUrl}
             alt={post.title}
             fill
+            unoptimized
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(min-width: 768px) 260px, 72px"
           />

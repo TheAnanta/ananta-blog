@@ -149,6 +149,7 @@ export default async function BlogPostPage({
                         src={author.avatarUrl}
                         alt={author.name}
                         fill
+                        unoptimized
                         className="object-cover"
                         sizes="50px"
                       />
@@ -187,6 +188,7 @@ export default async function BlogPostPage({
                 alt={post.title}
                 fill
                 priority
+                unoptimized
                 sizes="(max-width: 768px) 100vw, 768px"
                 className="object-cover"
               />
