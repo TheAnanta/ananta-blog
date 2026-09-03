@@ -1,12 +1,12 @@
 {
   "slug": "discovering-web",
   "title": "Discovering Web",
-  "excerpt": null,
-  "coverImageUrl": null,
+  "excerpt": "A sample blog to test the CMS",
+  "coverImageUrl": "https://images.ctfassets.net/v3n26e09qg2r/4NcF0eXixKLYQFKIQ0pXWV/802a953e11a4f70ef3c5aaf8df27dbfc/Headspace_Opengraph.png",
   "tags": [
     "web"
   ],
   "authorName": "Manas Malla",
   "publishedAt": "2026-09-03T22:28:21.04424+00:00",
-  "bodyMarkdown": "I just got an amazing idea\n\n\n\n"
+  "bodyMarkdown": "I just got an amazing idea\n\n"
 }
