@@ -12,12 +12,6 @@
     "color": "#FF7300"
   },
   {
-    "slug": "jetpack-compose",
-    "label": "Jetpack Compose",
-    "tag": "jetpack-compose",
-    "color": "#0061EF"
-  },
-  {
     "slug": "web",
     "label": "Web",
     "tag": "web",
